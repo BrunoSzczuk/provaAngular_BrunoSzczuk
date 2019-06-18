@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col s12 m6 l4">
+    <mat-form-field>
+      <mat-label>Animal</mat-label>
+      <mat-select [(value)]="vacina.idAnimal">
+        <mat-option *ngFor="let animal of animais" [value]="animal.idAnimal" >
+          {{animal.descricao}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l4">
+    <mat-form-field>
+      <input matInput required placeholder="Aplicador" type="text" [(ngModel)]="vacina.aplicador">
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l4">
+    <mat-form-field>
+      <input matInput required placeholder="Dosagem" type="number" [(ngModel)]="vacina.dosagem">
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l4">
+    <mat-form-field>
+      <input matInput required placeholder="Peso" type="number" [(ngModel)]="vacina.peso">
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l4">
+    <mat-form-field>
+      <input matInput required placeholder="Descrição Medicamento" type="text" [(ngModel)]="vacina.descMedicamento">
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l4">
+    <mat-form-field>
+      <input matInput required placeholder="Data vacina" type="date" [(ngModel)]="vacina.dtVacina">
+    </mat-form-field>
+  </div>
+</div>
+<div class="row footer-btn">
+  <div class="button-row col s12">
+    <button *ngIf="!edit" mat-raised-button color="orange" (click)="salvar()">Save</button>
+    <button *ngIf="edit" mat-raised-button color="orange" (click)="atualizar()">Atualizar</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <mat-table #table [dataSource]="dataSource" matSort class="table-striped">
+
+      <!-- Ações -->
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button>
+            <mat-icon matTooltip="Excluir" (click)="confirmDialog(element.idVacina)">delete</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon matTooltip="Editar" (click)="editar(element)">edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="idVacina">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.idVacina}} </mat-cell>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="aplicador">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Aplicador </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.aplicador}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dosagem">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Dosagem </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dosagem}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="peso">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Peso </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.peso}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="dtVacina">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Data Vacina </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dtVacina}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="descMedicamento">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição Medicamento </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.descMedicamento}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </div>
+</div>
